@@ -1,5 +1,10 @@
-#encoding:utf-8
+# encoding:utf-8
+"""
+xz331@cam.ac.uk
+abnerzxzhao@tencent.com
+"""
 import tensorflow as tf
+
 
 class basemodel(object):
     def __init__(self, args):
@@ -26,20 +31,17 @@ class basemodel(object):
             return tf.truncated_normal_initializer(stddev=self.args.stddev)
 
     def _set_opt(self):
-        if (self.args.opt == 'SGD'):
-            self.opt = tf.train.GradientDescentOptimizer(learning_rate=self.learn_rate)
-        elif (self.args.opt == 'Adam'):
+        if self.args.opt == 'SGD':
+            self.opt = tf.compat.v1.train.GradientDescentOptimizer(learning_rate=self.learn_rate)
+        elif self.args.opt == 'Adam':
             self.opt = tf.train.AdamOptimizer(learning_rate=self.learn_rate)
-        elif (self.args.opt == 'Adadelta'):
+        elif self.args.opt == 'Adadelta':
             self.opt = tf.train.AdadeltaOptimizer(learning_rate=self.learn_rate)
-        elif (self.args.opt == 'Adagrad'):
+        elif self.args.opt == 'Adagrad':
             self.opt = tf.train.AdagradOptimizer(learning_rate=self.learn_rate,
                                                  initial_accumulator_value=0.9)
-        elif (self.args.opt == 'RMS'):
+        elif self.args.opt == 'RMS':
             self.opt = tf.train.RMSPropOptimizer(learning_rate=self.learn_rate,
                                                  decay=0.9, epsilon=1e-6)
-        elif (self.args.opt == 'Moment'):
+        elif self.args.opt == 'Moment':
             self.opt = tf.train.MomentumOptimizer(self.args.learn_rate, 0.9)
-
-
-
